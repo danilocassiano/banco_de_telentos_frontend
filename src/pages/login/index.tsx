@@ -1,35 +1,48 @@
 import { useEffect, useState } from 'react';
 
-function Login() {
-  
+interface LoginProps {
+  onLogin: () => void;
+}
+
+//Imagens da tela de login
+function Login({ onLogin }: LoginProps) {
   const images = [
-    'src/assets/login_1.jpg',
-    'src/assets/login_2.jpg',
-    'src/assets/login_3.jpg',
-    'src/assets/login_4.jpg'
+    'src/assets/image/login_1.jpg',
+    'src/assets/image/login_2.jpg',
+    'src/assets/image/login_3.jpg',
+    'src/assets/image/login_4.jpg'
   ];
 
   const [backgroundImage, setBackgroundImage] = useState('');
 
-  useEffect(() => {    
+  //Mudança da tela de login rondomicamente.
+
+  useEffect(() => {
     const randomImage = images[Math.floor(Math.random() * images.length)];
     setBackgroundImage(randomImage);
   }, []);
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onLogin(); // Chamando a função de login ao submeter o formulário
+  };
+
   return (
     <div
       className="h-screen w-screen flex flex-col md:flex-row overflow-hidden m-0 p-0"
-      style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
     >
-      
       <div className="flex flex-col justify-center items-center bg-white bg-opacity-30 w-full h-full md:w-1/4 p-8 md:p-12">
         
-       
         <div className="flex justify-center mb-6">
-          <img src="src/assets/img login.png" alt="Logo da Empresa" className="h-16" />
-        </div>        
-       
-        <form className="space-y-4 w-full px-4">          
+          <img src="src/assets/image/img login.png" alt="Logo da Empresa" className="h-16" />
+        </div>
+
+        <form className="space-y-4 w-full px-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="username" className="block text-white">Usuário / Email</label>
             <input
