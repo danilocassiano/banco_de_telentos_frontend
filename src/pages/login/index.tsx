@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../store/hook/auth';
 
 //Imagens da tela de login
 function Login() {
+  const route = useNavigate()
+  const { isAutenticated, token } = useAuth()
   const images = [
     'src/assets/image/login_1.jpg',
     'src/assets/image/login_2.jpg',
@@ -16,7 +20,11 @@ function Login() {
   useEffect(() => {
     const randomImage = images[Math.floor(Math.random() * images.length)];
     setBackgroundImage(randomImage);
-  }, []);
+
+    if(isAutenticated())
+      route('/dashboard')
+
+  }, [token]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
