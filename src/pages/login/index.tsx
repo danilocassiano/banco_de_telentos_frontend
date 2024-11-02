@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 
-interface LoginProps {
-  onLogin: () => void;
-}
-
 //Imagens da tela de login
-function Login({ onLogin }: LoginProps) {
+function Login() {
   const images = [
     'src/assets/image/login_1.jpg',
     'src/assets/image/login_2.jpg',
@@ -24,7 +20,7 @@ function Login({ onLogin }: LoginProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onLogin(); // Chamando a função de login ao submeter o formulário
+    
   };
 
   return (
