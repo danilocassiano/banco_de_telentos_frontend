@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 interface NavbarProps {
-  toggleSidebar: () => void; // Define que é uma função que não recebe parâmetros e não retorna nada
+  toggleSidebar: () => void; 
 }
 
 const Navbar: FC<NavbarProps> = ({ toggleSidebar }) => {

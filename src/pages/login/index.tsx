@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { backendService } from '../../service/backend.service';
 
 interface LoginProps {
   onLogin: () => void;
 }
 
-//Imagens da tela de login
 function Login({ onLogin }: LoginProps) {
+  const navigate = useNavigate();
   const images = [
     'src/assets/image/login_1.jpg',
     'src/assets/image/login_2.jpg',
@@ -14,17 +16,26 @@ function Login({ onLogin }: LoginProps) {
   ];
 
   const [backgroundImage, setBackgroundImage] = useState('');
-
-  //Mudança da tela de login rondomicamente.
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const randomImage = images[Math.floor(Math.random() * images.length)];
     setBackgroundImage(randomImage);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onLogin(); // Chamando a função de login ao submeter o formulário
+    
+    try {
+      await backendService.login(username, password);
+      onLogin(); 
+      navigate('/'); 
+    } catch (error) {
+      console.error('Erro de login:', error);
+      setErrorMessage('Credenciais inválidas. Tente novamente.');
+    }
   };
 
   return (
@@ -50,6 +61,8 @@ function Login({ onLogin }: LoginProps) {
               id="username"
               className="w-full p-2 border border-gray-300 rounded bg-transparent text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Digite seu usuário ou e-mail"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
@@ -60,8 +73,14 @@ function Login({ onLogin }: LoginProps) {
               id="password"
               className="w-full p-2 border border-gray-300 rounded bg-transparent text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Digite sua senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+
+          {errorMessage && (
+            <p className="text-red-500 text-sm">{errorMessage}</p>
+          )}
           
           <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600">
             ENTRAR
