@@ -14,7 +14,7 @@ type TProps = {
 }
 
 export const AuthProvider = ({ children }: TProps) => {
-    const [token, setToken] = useState<string>('dvcsdvs')
+    const [token, setToken] = useState<string>('')
 
     const isAutenticated = (): boolean => !!token
     const createToken = (token: string) => {

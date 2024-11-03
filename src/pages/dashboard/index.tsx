@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar";
 import Navbar from "../../components/navbar";
 import { useAuth } from "../../store/hook/auth";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export default function Dashboard(){
   const route = useNavigate()
@@ -30,7 +30,7 @@ export default function Dashboard(){
         <Navbar toggleSidebar={toggleSidebar} />
 
         <main className="flex-grow p-6">
-            
+            <Outlet />
         </main>
         </div>
     </div>
