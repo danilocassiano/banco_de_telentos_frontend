@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 
-const Sidebar = () => {
+type SidebarProps = {
+  onCreateUserClick: () => void;   
+};
+
+
+const Sidebar: React.FC<SidebarProps> = ({ onCreateUserClick }) => {
   // Estado para controlar a visibilidade da sub-lista
   const [isSubListVisible, setSubListVisible] = useState(false);
 
@@ -8,6 +13,7 @@ const Sidebar = () => {
   const toggleSubList = () => {
     setSubListVisible(!isSubListVisible);
   };
+  
 
   return (
     <aside className="w-64 h-screen bg-gray-100 shadow-md">
@@ -105,6 +111,24 @@ const Sidebar = () => {
       <hr className="border-gray-300 my-4" />
 
       <nav className="flex flex-col space-y-2 mt-4 ml-8">
+        
+        <div className="flex items-center">
+          <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          fill="none" viewBox="0 0 24 24" 
+          strokeWidth={1.5} 
+          stroke="currentColor" 
+          className="size-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+          </svg>
+          <button
+            onClick={onCreateUserClick}  
+            className="px-4 py-2 text-gray-600 hover:bg-gray-200 hover:text-blue-600"
+          >
+            Criar Usuário
+          </button>
+        </div>
+
         <div className="flex items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -123,20 +147,7 @@ const Sidebar = () => {
           </svg>
           <a href="#settings" className="px-4 py-2 text-gray-600 hover:bg-gray-200 hover:text-blue-600">Settings</a>
         </div>
-
-        <div className="flex items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="h-6 w-6 mr-2"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9" />
-          </svg>
-          <a href="#logout" className="px-4 py-2 text-gray-600 hover:bg-gray-200 hover:text-blue-600">Logout</a>
-        </div>
+       
       </nav>
     </aside>
   );

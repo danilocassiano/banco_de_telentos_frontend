@@ -35,3 +35,7 @@ axios.interceptors.request.use((config) => {
 export const backendService = {
   login,
 };
+
+async function createUser(){
+
+}
