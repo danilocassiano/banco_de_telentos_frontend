@@ -1,10 +1,12 @@
 export interface IUser {
-    id: number   
-    departamento: EDepartamento
+    id: number  
     email: string
-    name: string   
-    createdAt: string
-    updatedAt: string
+    nome: string      
+    Departamento: {
+			id :number, 
+			descricao: string,
+			abreviacao: string
+		}
 }
 
 export interface ICreateUserDto {
@@ -19,6 +21,8 @@ export interface IUserLogin {
     username: string;
     password: string;
 }
+
+
 
 export enum EDepartamento {
     COMERCIAL = "Comercial",

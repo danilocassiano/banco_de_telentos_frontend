@@ -1,10 +1,10 @@
 'use client';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { EDepartamento, IUserFormProps, ICreateUserDto } from "../../../types/user";
+import { EDepartamento, ICreateUserDto } from "../../../types/user";
 import { backendService } from "../../../service/backend.service.ts";
 
-const CreateUser: React.FC<IUserFormProps> = ({ onClose }) => {
+const CreateUser: React.FC = () => {
 
     const navigate = useNavigate();
 

@@ -1,13 +1,15 @@
 import { createContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import { IUser } from "../../types/user";
 
 export const authContext = createContext<IValue>({} as IValue)
 
 interface IValue {
     isAutenticated: () => boolean,
-    createToken: (token: string) => void,
+    createToken: (token: string, user: IUser) => void,
     logout: () => void
     token: string
+    user: IUser
 }
 
 type TProps = {
@@ -17,27 +19,38 @@ type TProps = {
 export const AuthProvider = ({ children }: TProps) => {
     const [cookies, setCookie] = useCookies()
     const [token, setToken] = useState<string>(cookies['token'])
+    const [user, setUser] = useState<IUser>({} as IUser)
 
     const isAutenticated = (): boolean => !!token
 
-    const createToken = (token: string) => {
+    
+
+    const createToken = (token: string, user: IUser) => {
+        console.log(user)
         setCookie('token', token)
         setToken(token)
+        setUser(user)
+        setCookie('user', JSON.stringify(user))
+        
     }
 
     const logout = () => {
         setCookie('token', '')
         setToken('')
+        setUser({} as IUser)
+        setCookie('user', '')
     }
 
     useEffect(() => {
         const localToken = cookies['token']
 
-        if(localToken)
-           return createToken(token)
+        if(localToken){
+            // const user = JSON.parse(cookies['user']);            
+            return createToken(token, user)
+        }          
 
         logout()
-    }, [token])
+    }, [token])  
 
    
 
@@ -45,7 +58,8 @@ export const AuthProvider = ({ children }: TProps) => {
         isAutenticated,
         createToken,
         logout,
-        token
+        token,
+        user
     }
 
     return (

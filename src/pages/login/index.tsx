@@ -24,15 +24,16 @@ function Login() {
 
     if(isAutenticated())
       navigate('/dashboard')
-
+      console.log(token, isAutenticated());
+      
   }, [token]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     await backendService.login(username, password)
-    .then((token) => { 
-      createToken(token)
+    .then(({token, user}) => { 
+      createToken(token, user)
 
     })
     .catch(error => {

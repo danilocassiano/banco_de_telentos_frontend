@@ -1,11 +1,14 @@
 import { FC } from 'react';
 import DropdownUser from '../../components/DropdownUser';
+import { useAuth } from '../../store/hook/auth';
 
 interface NavbarProps {
   toggleSidebar: () => void;
 }
 
 const Navbar: FC<NavbarProps> = ({ toggleSidebar }) => {
+  const {user} = useAuth()
+
   return (
     <header className="bg-white shadow-md">
       <div className="flex items-center justify-between p-4">
@@ -60,8 +63,8 @@ const Navbar: FC<NavbarProps> = ({ toggleSidebar }) => {
         {/* Ícones do lado direito */}  
         <div className="flex items-center space-x-4">
           <div className="hidden sm:flex flex-col items-end text-right">
-            <span className="text-gray-600 font-bold">Micaela Eloyse</span>
-            <span className="text-gray-400 text-sm">RH</span>
+            <span className="text-gray-600 font-bold">{user.nome}</span>
+            <span className="text-gray-400 text-sm">{user.Departamento?.abreviacao}</span>
           </div>
           <svg
             xmlns="http://www.w3.org/2000/svg"

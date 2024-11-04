@@ -1,17 +1,16 @@
 import axios from 'axios';
-import { ICreateUserDto } from '../types/user';
+import { ICreateUserDto, IUser } from '../types/user';
 
 const http = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://banco-de-telentos-backend.onrender.com/",
   withCredentials: true,
 })
 
-async function login(username: string, password: string) {
+async function login(username: string, password: string):Promise<{token: string, user: IUser}> {
   try {
     const response = await http.post("/auth/login", { username, password });
-    const { token } = response.data;
-
-    return token;
+    return response.data;
+    
   } catch (error) {
     console.error('Erro no login:', error);
     throw error;
