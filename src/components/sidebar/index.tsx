@@ -16,7 +16,7 @@ const Sidebar: React.FC = () => {
   return (
     <aside className="w-64 h-screen bg-gray-100 shadow-md">
       <div className="flex justify-center mb-2 mt-4">
-        <img src="src/assets/image/logo_DDM.png" alt="Logo da Empresa" className="h-20" />
+        <img src="image/logo_DDM.png" alt="Logo da Empresa" className="h-20" />
       </div>
 
       <hr className="border-gray-300 mb-4" />
