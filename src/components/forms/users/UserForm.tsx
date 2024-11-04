@@ -1,10 +1,11 @@
 'use client';
 
 import { toast } from "react-toastify";
-import { EDepartamento, IcreateUser, IUserFormProps } from "../../../types/user.ts";
+import { EDepartamento, IcreateUser } from "../../../types/user.ts";
 import { IErrorResponse } from "../../../types/error.ts";
+import { backendService } from "../../../service/backend.service.ts";
 
-const CreateUser: React.FC<IUserFormProps> = ({ onClose }) => {
+const CreateUser: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); 
 
@@ -18,7 +19,7 @@ const CreateUser: React.FC<IUserFormProps> = ({ onClose }) => {
         };
 
         try {
-            const response = await backendService.createUser(data);
+            const response = await backendService.createUser();
             console.log("Resposta do Backend:", response);
 
             if (Number.isInteger(response.status)) {
@@ -26,7 +27,6 @@ const CreateUser: React.FC<IUserFormProps> = ({ onClose }) => {
                 toast.error(message);
             } else {
                 toast.success('Usuário cadastrado com sucesso!');
-                onClose(); // Fecha o formulário após cadastro bem-sucedido
             }
         } catch (error) {
             console.error('Erro ao enviar o formulário:', error);
@@ -115,7 +115,7 @@ const CreateUser: React.FC<IUserFormProps> = ({ onClose }) => {
                                 </button>
                                 <button
                                     type="button" 
-                                    onClick={onClose}
+                                    onClick={() => {}}
                                     className="bg-red-400 text-gray-700 px-6 py-2 rounded hover:bg-gray-400"
                                 >
                                     Fechar

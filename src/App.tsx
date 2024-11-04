@@ -1,28 +1,33 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './pages/login';
-import Home from './pages/Home';
+import { AuthProvider } from './store/context/auth';
+import Dashboard from './pages/dashboard';
+import CreateUser from './components/forms/users/UserForm';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: '/dashboard/create-user',
+        element: <CreateUser />
+      }
+    ]
+  },
+]);
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
-
   return (
-    <div className="h-screen">
-      <Router>
-        {isAuthenticated ? (
-          <Routes>
-            <Route path="/*" element={<Home />} />
-          </Routes>
-        ) : (
-          <Login onLogin={handleLogin} />
-        )}
-      </Router>
-    </div>
-  );
+    <AuthProvider>
+      <RouterProvider router={router}/>
+    </AuthProvider>
+      
+  )
 }
 
 export default App;

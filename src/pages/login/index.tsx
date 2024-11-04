@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { backendService } from '../../service/backend.service';
+import { useAuth } from '../../store/hook/auth';
 
-interface LoginProps {
-  onLogin: () => void;
-}
-
-function Login({ onLogin }: LoginProps) {
+function Login() {
   const navigate = useNavigate();
+  const  { isAutenticated, createToken, token } = useAuth()
   const images = [
     'src/assets/image/login_1.jpg',
     'src/assets/image/login_2.jpg',
@@ -23,19 +21,24 @@ function Login({ onLogin }: LoginProps) {
   useEffect(() => {
     const randomImage = images[Math.floor(Math.random() * images.length)];
     setBackgroundImage(randomImage);
-  }, []);
+
+    if(isAutenticated())
+      navigate('/dashboard')
+
+  }, [token]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    try {
-      await backendService.login(username, password);
-      onLogin(); 
-      navigate('/'); 
-    } catch (error) {
+    await backendService.login(username, password)
+    .then((token) => { 
+      createToken(token)
+
+    })
+    .catch(error => {
       console.error('Erro de login:', error);
       setErrorMessage('Credenciais inválidas. Tente novamente.');
-    }
+    })
   };
 
   return (
