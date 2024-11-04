@@ -44,8 +44,9 @@ export const AuthProvider = ({ children }: TProps) => {
         const localToken = cookies['token']
 
         if(localToken){
-            const userLocal = user?.nome ? user : JSON.parse(cookies['user']);            
-            return createToken(token, userLocal)
+            // const userLocal = user?.nome ? user : JSON.parse(cookies['user']);    
+            console.log(cookies['user'],typeof cookies['user'])        
+            return createToken(token, user)
         }          
 
         logout()
