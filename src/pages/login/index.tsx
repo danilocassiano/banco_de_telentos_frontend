@@ -7,10 +7,10 @@ function Login() {
   const navigate = useNavigate();
   const  { isAutenticated, createToken, token } = useAuth()
   const images = [
-    'src/assets/image/login_1.jpg',
-    'src/assets/image/login_2.jpg',
-    'src/assets/image/login_3.jpg',
-    'src/assets/image/login_4.jpg'
+    '/image/login_1.jpg',
+    '/image/login_2.jpg',
+    '/image/login_3.jpg',
+    '/image/login_4.jpg'
   ];
 
   const [backgroundImage, setBackgroundImage] = useState('');
@@ -54,7 +54,7 @@ function Login() {
       <div className="flex flex-col justify-center items-center bg-white bg-opacity-30 w-full h-full md:w-1/4 p-8 md:p-12">
         
         <div className="flex justify-center mb-6">
-          <img src="src/assets/image/img login.png" alt="Logo da Empresa" className="h-16" />
+          <img src="/image/img login.png" alt="Logo da Empresa" className="h-16" />
         </div>
 
         <form className="space-y-4 w-full px-4" onSubmit={handleSubmit}>
