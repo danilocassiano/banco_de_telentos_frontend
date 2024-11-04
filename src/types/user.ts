@@ -1,26 +1,19 @@
+export interface IUser {
+    id: number   
+    departamento: EDepartamento
+    email: string
+    name: string   
+    createdAt: string
+    updatedAt: string
+}
 
+export interface ICreateUserDto {
+    email: string;
+    nome: string;
+    password: string;
+    codigoDepartamento: string;
+}
 
-// export interface IUser {
-//     id: number
-//     telefone: string
-//     celular: string
-//     status: true
-//     departamento: EDepartamento
-//     email: string
-//     name: string
-//     pro: 0 | 1
-//     resumo: string
-//     idEndereco: number
-//     idEmpresa: number  
-//     isadmin: 0 | 1
-//     tipo: ETipo
-//     dataNascimento: string    
-//     idFoto: number  
-//     createdAt: string
-//     updatedAt: string
-//     Foto: IFoto
-//     Empresa: IEmpresa
-//   }
 
 export interface IUserLogin {
     username: string;
@@ -35,7 +28,7 @@ export enum EDepartamento {
     FINANCEIRO = "Financeiro",
     JURIDICO = "Jurídico",
     JOVEM_APRENDIZ = "Jovem Aprendiz",
-    RECURSOS_HUMANOS = "RH"
+    RECURSOS_HUMANOS = "Recursos Humanos"
 }
 
 export interface IcreateUser {

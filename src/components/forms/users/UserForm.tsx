@@ -1,33 +1,32 @@
 'use client';
-
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { EDepartamento, IcreateUser, IUserFormProps } from "../../../types/user.ts";
-import { IErrorResponse } from "../../../types/error.ts";
+import { EDepartamento, IUserFormProps, ICreateUserDto } from "../../../types/user";
+import { backendService } from "../../../service/backend.service.ts";
 
 const CreateUser: React.FC<IUserFormProps> = ({ onClose }) => {
+
+    const navigate = useNavigate();
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); 
+
+        event.preventDefault();
 
         const formData = new FormData(event.currentTarget);
 
-        const data: IcreateUser = {
-            name: formData.get('name') as string,
+        
+        const newUser: ICreateUserDto = {
             email: formData.get('email') as string,
+            nome: formData.get('name') as string, 
             password: formData.get('password') as string,
-            departamento: formData.get('departamento') as EDepartamento,
+            codigoDepartamento: formData.get('departamento') as string, 
         };
 
         try {
-            const response = await backendService.createUser(data);
-            console.log("Resposta do Backend:", response);
+            await backendService.createUser(newUser);
+            toast.success('Usuário cadastrado com sucesso!');            
+            navigate("/dashboard");            
 
-            if (Number.isInteger(response.status)) {
-                const { message } = response as IErrorResponse;
-                toast.error(message);
-            } else {
-                toast.success('Usuário cadastrado com sucesso!');
-                onClose(); // Fecha o formulário após cadastro bem-sucedido
-            }
         } catch (error) {
             console.error('Erro ao enviar o formulário:', error);
             toast.error('Erro ao cadastrar usuário.');
@@ -101,7 +100,7 @@ const CreateUser: React.FC<IUserFormProps> = ({ onClose }) => {
                                         <option value={EDepartamento.FINANCEIRO}>Financeiro</option>
                                         <option value={EDepartamento.JURIDICO}>Jurídico</option>
                                         <option value={EDepartamento.JOVEM_APRENDIZ}>Jovem Aprendiz</option>
-                                        <option value={EDepartamento.RECURSOS_HUMANOS}>RH</option>
+                                        <option value={EDepartamento.RECURSOS_HUMANOS}>Recursos Humanos</option>
                                     </select>
                                 </div>
                             </div>

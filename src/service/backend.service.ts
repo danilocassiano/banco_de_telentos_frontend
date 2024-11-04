@@ -1,11 +1,13 @@
 import axios from 'axios';
+import { ICreateUserDto } from '../types/user';
 
-const API_URL = 'http://localhost:3000/auth'; 
-
+const http = axios.create({
+  baseURL: "http://localhost:3000"
+})
 
 async function login(username: string, password: string) {
   try {
-    const response = await axios.post(`${API_URL}/login`, { username, password });
+    const response = await http.post("/auth/login", { username, password });
     const { token } = response.data;
 
    
@@ -17,7 +19,6 @@ async function login(username: string, password: string) {
     throw error;
   }
 }
-
 
 function getToken() {
   return localStorage.getItem('token');
@@ -32,10 +33,18 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
+
+
+async function createUser(newUser: ICreateUserDto): Promise<void> {
+  try {
+      await http.post('/users', newUser);            
+  } catch (error) {
+      console.error('Erro ao criar usuário:', error);
+      throw error;
+  }
+}
+
 export const backendService = {
   login,
+  createUser,
 };
-
-async function createUser(){
-
-}
