@@ -18,22 +18,22 @@ async function login(username: string, password: string):Promise<{token: string,
 }
 
 
-function getToken(name='token') {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; token=${name}`) ?? [];
-  if (parts?.length === 2) return parts.pop?.().split(';').shift();
-  return null;
-}
+// function getToken(name='token') {
+//   const value = `; ${document.cookie}`;
+//   const parts = value.split(`; token=${name}`) ?? [];
+//   if (parts?.length === 2) return parts.pop?.().split(';').shift();
+//   return null;
+// }
 
 
-axios.interceptors.request.use((config) => {
-  const token = getToken();
-  if (token)
-    config.headers['Authorization'] = `Bearer ${token}`;
+// axios.interceptors.request.use((config) => {
+//   const token = getToken();
+//   if (token)
+//     config.headers['Authorization'] = `Bearer ${token}`;
   
 
-  return config;
-});
+//   return config;
+// });
 
 
 
