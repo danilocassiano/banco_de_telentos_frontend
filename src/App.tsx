@@ -1,32 +1,33 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './pages/login';
-import Home from './pages/Home';
-import { ToastContainer } from 'react-toastify';
+import { AuthProvider } from './store/context/auth';
+import Dashboard from './pages/dashboard';
+import CreateUser from './components/forms/users/UserForm';
 
-import 'react-toastify/dist/ReactToastify.css';
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: '/dashboard/create-user',
+        element: <CreateUser />
+      }
+    ]
+  },
+]);
 
-function App() {  
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
-
+function App() {
   return (
-    <div className="h-screen">
-      <ToastContainer />
-      <Router>
-        {isAuthenticated ? (
-          <Routes>
-            <Route path="/*" element={<Home />} />
-          </Routes>
-        ) : (
-          <Login onLogin={handleLogin} />
-        )}
-      </Router>
-    </div>
-  );
+    <AuthProvider>
+      <RouterProvider router={router}/>
+    </AuthProvider>
+      
+  )
 }
 
 export default App;

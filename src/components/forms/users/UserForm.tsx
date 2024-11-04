@@ -114,7 +114,7 @@ const CreateUser: React.FC<IUserFormProps> = ({ onClose }) => {
                                 </button>
                                 <button
                                     type="button" 
-                                    onClick={onClose}
+                                    onClick={() => {}}
                                     className="bg-red-400 text-gray-700 px-6 py-2 rounded hover:bg-gray-400"
                                 >
                                     Fechar

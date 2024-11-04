@@ -2,16 +2,14 @@ import axios from 'axios';
 import { ICreateUserDto } from '../types/user';
 
 const http = axios.create({
-  baseURL: "http://localhost:3000"
+  baseURL: "http://localhost:3000",
+  withCredentials: true,
 })
 
 async function login(username: string, password: string) {
   try {
     const response = await http.post("/auth/login", { username, password });
     const { token } = response.data;
-
-   
-    localStorage.setItem('token', token);
 
     return token;
   } catch (error) {
@@ -20,16 +18,21 @@ async function login(username: string, password: string) {
   }
 }
 
-function getToken() {
-  return localStorage.getItem('token');
+
+function getToken(name='token') {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; token=${name}`) ?? [];
+  if (parts?.length === 2) return parts.pop?.().split(';').shift();
+  return null;
 }
 
 
 axios.interceptors.request.use((config) => {
   const token = getToken();
-  if (token) {
+  if (token)
     config.headers['Authorization'] = `Bearer ${token}`;
-  }
+  
+
   return config;
 });
 
