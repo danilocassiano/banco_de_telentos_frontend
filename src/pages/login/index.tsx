@@ -54,7 +54,11 @@ function Login() {
       <div className="flex flex-col justify-center items-center bg-white bg-opacity-30 w-full h-full md:w-1/4 p-8 md:p-12">
         
         <div className="flex justify-center mb-6">
+<<<<<<< HEAD
           <img src="/image/img login.png" alt="Logo da Empresa" className="h-16" />
+=======
+          <img src={logo} alt="Logo da Empresa" className="h-16" />
+>>>>>>> 812359d (Salvando alterações locais antes de puxar atualizações remotas)
         </div>
 
         <form className="space-y-4 w-full px-4" onSubmit={handleSubmit}>
