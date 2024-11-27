@@ -1,12 +1,11 @@
-import { useState } from 'react';
-
-import logo from '../../assets/image/logo_DDM.png';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const Sidebar: React.FC = () => {
   const route = useNavigate()
   // Estado para controlar a visibilidade da sub-lista
-  const [isSubListVisible, setSubListVisible] = useState(false); 
+  const [isSubListVisible, setSubListVisible] = useState(false);
 
   // Função para alternar a exibição da sub-lista
   const toggleSubList = () => {
@@ -17,7 +16,7 @@ const Sidebar: React.FC = () => {
   return (
     <aside className="w-64 h-screen bg-gray-100 shadow-md">
       <div className="flex justify-center mb-2 mt-4">
-        <img src={logo} alt="Logo da Empresa" className="h-20" />
+        <img src="image/logo_DDM.png" alt="Logo da Empresa" className="h-20" />
       </div>
 
       <hr className="border-gray-300 mb-4" />
